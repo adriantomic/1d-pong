@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    var connection = new WebSocket('ws://' + location.hostname + ':81/', [
+     'arduino'
+     ]);
+    connection.onopen = function() {
+     connection.send('Connect ' + new Date());
+   };
+   connection.onerror = function(error) {
+     console.log('WebSocket Error ', error);
+   };
+   connection.onmessage = function(e) {
+     console.log('Server: ', e.data);
+   };
+
+   function sendHit(){
+    connection.send('Hit');
+  }
+  </script>
+<title>1D-Pong!</title>
+</head>
+<body>
+  <form>
+    <button onclick='sendHit()'>Click me</button>
+  </form>
+</body>
+</html>
